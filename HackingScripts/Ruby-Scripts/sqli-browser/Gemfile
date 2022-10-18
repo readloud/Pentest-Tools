@@ -1,0 +1,7 @@
+source 'https://rubygems.org'
+gem 'i18n'
+gem 'sqli-browser'
+
+# Specify your gem's dependencies in sqli-browser.gemspec
+
+gemspec

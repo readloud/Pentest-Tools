@@ -1,0 +1,73 @@
+#!/usr/bin/env ruby
+#
+# JWTear - A command-line tool and library to parse, create and manipulate JWT tokens for security testing purposes.
+#
+# @Author: KING SABRI - @KINGSABRI
+#
+lib = File.expand_path(File.join(File.dirname(__FILE__), ['/', '..', 'lib']))
+if File.directory?(lib)
+  unless $:.include?(lib)
+    $:.unshift(lib)
+  end
+end
+require 'jwtear'
+require 'gli'
+
+module  JWTear
+  module CLI
+    extend GLI::App
+    extend JWTear::Helpers::Utils
+
+    program_desc 'Parse, create and manipulate JWT tokens.'
+
+    # CLI settings
+    # ENV['GLI_DEBUG'] =      "true"  # Uncomment this line for debugging
+    autocomplete_commands      true
+    subcommand_option_handling :normal
+    arguments                  :strict
+    sort_help                  :manually
+    wrap_help_text             :verbatim
+    synopsis_format            :full
+
+    desc 'Check current and latest version'
+    switch [:v, :version],  negatable: false
+    @version = JWTear::VERSION
+
+    desc 'Show this help message'
+    switch [:h, :help],  negatable: false
+
+    dir = File.expand_path(File.join(File.dirname(__FILE__), ['..', 'plugins']))
+    commands_from dir if Dir.exist? dir
+
+    trap("INT") do
+      puts
+      print_error "User interruption!"
+      print_warning "Exiting jwtear process."
+      exit!
+    end
+
+    puts banner if ARGV.empty?
+    on_error do |exception|
+      puts banner
+      case exception
+      when GLI::UnknownGlobalArgument
+        print_error "#{exception.message}"
+      when GLI::MissingRequiredArgumentsException
+        print_error "Option #{exception.message}"
+      when OptionParser::MissingArgument
+        print_error "Option #{exception.message}"
+      when GLI::UnknownCommandArgument
+        print_error "#{exception.message}"
+      when GLI::UnknownCommand
+        print_error "#{exception.message}"
+      else
+        print_error "Unknown Exception:"
+        print_warning 'Please report the issue to: https://github.com/KINGSABRI/jwtear/issues'.underline
+        puts exception.full_message
+      end
+
+      true
+    end
+  end
+end
+exit JWTear::CLI.run(ARGV)

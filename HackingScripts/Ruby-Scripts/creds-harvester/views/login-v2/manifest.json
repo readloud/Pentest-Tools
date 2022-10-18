@@ -1,0 +1,28 @@
+{
+  "gcm_sender_id": "103953800507",
+  "name": "Ninja Dashboard",
+  "short_name": "Ninja Van",
+  "theme_color": "#ffffff",
+  "background_color": "#f2f5f7",
+  "display": "standalone",
+  "Scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/ninja-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/ninja-chrome-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "/running-ninja.png",
+      "sizes": "600x600",
+      "type": "image/png"
+    }
+  ],
+  "splash_pages": null
+}

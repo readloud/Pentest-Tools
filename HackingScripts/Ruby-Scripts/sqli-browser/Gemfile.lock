@@ -1,0 +1,17 @@
+PATH
+  remote: .
+  specs:
+    sqli-browser (0.1.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  sqli-browser!
+
+BUNDLED WITH
+   1.11.2
